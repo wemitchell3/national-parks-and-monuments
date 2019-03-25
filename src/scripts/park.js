@@ -33,9 +33,40 @@ const parkEditForm = (parkObject) => {
   editFormFragment.appendChild(buildElement("label", undefined, "State: "))
   editFormFragment.appendChild(buildElement("input", `edit-park-state--${parkObject.id}`, undefined, parkObject.state))
 
+  editFormFragment.appendChild(buildElement("label", undefined, "latitude: "))
+  editFormFragment.appendChild(buildElement("input", `edit-park-latitude--${parkObject.id}`, undefined, parkObject.latitude))
+
+  editFormFragment.appendChild(buildElement("label", undefined, "longitude: "))
+  editFormFragment.appendChild(buildElement("input", `edit-park-longitude--${parkObject.id}`, undefined, parkObject.longitude))
+
+  //Visted park or no radio buttons
+  const visitedRadioFormFragment = buildElement("form", `edit-park-visited--${parkObject.id}`)
+  visitedRadioFormFragment.appendChild(buildElement("label", undefined, "Visted?"))
+
+  const visitedYes = buildElement("input", undefined, undefined, "true")
+  visitedYes.type = "radio"
+  visitedYes.name = "visited"
+  visitedRadioFormFragment.appendChild(visitedYes)
+  visitedRadioFormFragment.appendChild(buildElement("label", undefined, "Yes", "true"))
+
+  const visitedNo = buildElement("input", undefined, undefined, "false")
+  visitedNo.type = "radio"
+  visitedNo.name = "visited"
+  visitedRadioFormFragment.appendChild(visitedNo)
+  visitedRadioFormFragment.appendChild(buildElement("label", undefined, "No", "false"))
+
+  if (parkObject.visited === true) {
+    visitedYes.checked = true
+  } else {
+    visitedNo.checked = true
+  }
+
+  editFormFragment.appendChild(visitedRadioFormFragment)
+
   const updateParkButton = buildElement("button", undefined, "Update")
   updateParkButton.addEventListener("click", handleUpdate)
   editFormFragment.appendChild(updateParkButton)
+  console.log(updateParkButton)
 
   return editFormFragment
 }
